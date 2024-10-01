@@ -35,15 +35,11 @@ namespace JetDog.AvatarHash
 
         public override void OnAvatarChanged(VRCPlayerApi player)
         {
+            //only get id for local player
             if (!player.isLocal) return;
-            //wait a few frames so eye height gets updated after avatar changed.
-            SendCustomEventDelayedFrames(nameof(DelayChange), 3, VRC.Udon.Common.Enums.EventTiming.Update);
-        }
 
-        public void DelayChange()
-        {
             //Geting avatar hash example
-            string avatarHash = AvatarHash.GetAvatarHash(Networking.LocalPlayer);
+            string avatarHash = AvatarHash.GetAvatarHash();
 
             if (avatarHashOutput != null) avatarHashOutput.text = avatarHash;
 
@@ -60,12 +56,10 @@ namespace JetDog.AvatarHash
                 }
 
             }
+
             //Getting limb debug values example.
-            if (debugLimbValues != null) debugLimbValues.text = AvatarHash.GetAvatarValuesDebug(Networking.LocalPlayer);
+            if (debugLimbValues != null) debugLimbValues.text = AvatarHash.GetAvatarValuesDebug();
         }
-
-        
-
 
     }
 }
